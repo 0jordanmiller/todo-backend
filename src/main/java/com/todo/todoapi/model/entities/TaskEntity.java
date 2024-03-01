@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "tasks")
-public class Task {
+@Table
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private boolean isComplete;
+    private boolean complete;
     private String name;
     private String description;
     private String comments;
