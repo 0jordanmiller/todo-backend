@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-@Table
+@Table(name = "tasks")
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
