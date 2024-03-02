@@ -9,11 +9,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface TaskMapper {
     TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
-//    @Mapping(target = "name", source = "dto.name")
-//    @Mapping(target = "description", source = "dto.description")
-    TaskEntity dtoToEntity(TaskDto dto);
 
-//    @Mapping(target = "name", source = "entity.name")
-//    @Mapping(target = "description", source = "entity.description")
+    TaskEntity dtoToEntity(TaskDto dto);
     TaskDto entityToDto(TaskEntity entity);
+
 }

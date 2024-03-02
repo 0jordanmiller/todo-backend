@@ -6,6 +6,7 @@ import com.todo.todoapi.model.entities.TaskEntity;
 import com.todo.todoapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,10 +23,14 @@ public class TaskService {
         this.taskRepository.save(entity);
     }
 
-    public void getAllTasks() {
-        System.out.println(this.taskRepository.findAll());
-//        List<TaskEntity> allTasks = this.taskRepository.findAll();
-//        System.out.println(allTasks);
+    public List<TaskDto> getAllTasks() {
+        Iterable<TaskEntity> allTasks = this.taskRepository.findAll();
+        List<TaskDto> mappedTasks = new ArrayList<>();
+        for (TaskEntity taskEntity : allTasks) {
+            mappedTasks.add(TaskMapper.INSTANCE.entityToDto(taskEntity));
+        }
+        System.out.println(mappedTasks);
+        return mappedTasks;
     }
 
 }

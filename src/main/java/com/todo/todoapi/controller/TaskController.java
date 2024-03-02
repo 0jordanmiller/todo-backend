@@ -2,12 +2,15 @@ package com.todo.todoapi.controller;
 
 import com.todo.todoapi.model.dto.TaskDto;
 import com.todo.todoapi.service.implementation.TaskService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class TaskController {
@@ -19,7 +22,6 @@ public class TaskController {
     @PostMapping("/tasks")
     public ResponseEntity<String> createTask(@RequestBody TaskDto task) {
         try {
-            System.out.println("recieved Complete value:  "+ task);
             taskService.createTask(task);
             return ResponseEntity.ok("Task Created" + task.toCustomString());
         } catch (Exception e) {
@@ -28,10 +30,15 @@ public class TaskController {
         }
     }
     @GetMapping("/tasks")
-    public ResponseEntity<String> getAllTasks() {
-        System.out.println("Getting tasks");
-        taskService.getAllTasks();
-        return ResponseEntity.ok("Here are the tasks");
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        try {
+            System.out.println("Getting tasks");
+            List<TaskDto> allTasks = taskService.getAllTasks();
+            return ResponseEntity.ok(allTasks);
+        } catch (Exception e) {
+            System.err.println("Error getting all tasks: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
 
